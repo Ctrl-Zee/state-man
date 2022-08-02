@@ -11,12 +11,9 @@ import {
   upsertEntities,
   deleteEntities,
   getAllEntitiesApply,
-  selectAllEntitiesApply,
 } from '@ngneat/elf-entities';
-import { map, Observable, of, reduce } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CartItem } from 'src/app/shared/models/cart-item';
-
-import { Book } from 'src/app/shared/models/book';
 
 @Injectable({
   providedIn: 'root',

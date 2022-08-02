@@ -1,3 +1,17 @@
-<p>
-  shopping-cart works!
-</p>
+<main *ngIf="cartVM$ | async as vm">
+  <section>
+    <p>{{ vm.cartCount }}</p>
+  </section>
+
+  <section>
+    <p>{{ vm.totalPrice }}</p>
+  </section>
+
+  <section>
+    <div *ngFor="let item of vm.cart">
+      <p>{{ item.id }}</p>
+      <p>Title: {{ item.book.title }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+    </div>
+  </section>
+</main>
