@@ -1,11 +1,13 @@
 @use "../../../../assets/styles/colors" as *;
 
 header {
-  height: 2.5rem;
+  height: 4rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background-color: $black;
   color: $white;
+  padding: 0 1rem;
 
   .title {
     width: 14rem;
@@ -13,9 +15,20 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $primary;
-    color: $black;
+    color: $primary;
     font-size: 1.5rem;
     letter-spacing: 0.15rem;
+  }
+
+  .p-input-icon-right {
+    width: 30%;
+    input {
+      width: 100%;
+    }
+  }
+
+  .shopping-cart .pi {
+    cursor: pointer;
+    font-size: 2rem;
   }
 }
