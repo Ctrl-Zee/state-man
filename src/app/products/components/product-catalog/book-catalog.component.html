@@ -5,8 +5,33 @@
       <p>Page Count: {{ book.pageCount }}</p>
       <p>Price: {{ book.price | currency }}</p>
       <ng-template pTemplate="footer">
-        <p-button label="Add to cart" icon="pi pi-plus"></p-button>
+        <p-button
+          label="Add to cart"
+          icon="pi pi-plus"
+          (onClick)="upsertToCart(book)"
+        ></p-button>
+        <!-- <p-button
+          label="Upsert"
+          icon="pi pi-plus"
+          (onClick)="upsertToCart(book)"
+        ></p-button> -->
       </ng-template>
     </p-card>
   </div>
+
+  <section *ngIf="cartCount$ | async as cartCount">
+    <p>{{ cartCount }}</p>
+  </section>
+
+  <section *ngIf="totalPrice$ | async as totalPrice">
+    <p>{{ totalPrice }}</p>
+  </section>
+
+  <section *ngIf="cart$ | async as cart">
+    <div *ngFor="let item of cart">
+      <p>{{ item.id }}</p>
+      <p>Title: {{ item.book.title }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+    </div>
+  </section>
 </main>
