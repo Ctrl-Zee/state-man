@@ -1,0 +1,12 @@
+<main *ngIf="books$ | async as books">
+  <div class="book-container" *ngFor="let book of books">
+    <p-card header="{{ book.title }}">
+      <p>Author: {{ book.author }}</p>
+      <p>Page Count: {{ book.pageCount }}</p>
+      <p>Price: {{ book.price | currency }}</p>
+      <ng-template pTemplate="footer">
+        <p-button label="Add to cart" icon="pi pi-plus"></p-button>
+      </ng-template>
+    </p-card>
+  </div>
+</main>

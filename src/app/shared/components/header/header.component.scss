@@ -1,0 +1,21 @@
+@use "../../../../assets/styles/colors" as *;
+
+header {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  background-color: $black;
+  color: $white;
+
+  .title {
+    width: 14rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary;
+    color: $black;
+    font-size: 1.5rem;
+    letter-spacing: 0.15rem;
+  }
+}

@@ -1,0 +1,18 @@
+@use "../../../../assets/styles/colors" as *;
+
+main {
+  max-width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+.book-container {
+  margin-top: 2rem;
+}
+
+:host ::ng-deep .p-card {
+  width: 24rem;
+  background-color: $offwhite;
+}
