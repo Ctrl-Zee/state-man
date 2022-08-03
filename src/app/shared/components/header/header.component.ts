@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { map, combineLatest } from 'rxjs';
 import { CartFacade } from 'src/app/core/services/cart.facade';
 
 @Component({
@@ -11,11 +9,7 @@ import { CartFacade } from 'src/app/core/services/cart.facade';
 export class HeaderComponent implements OnInit {
   cartCount$ = this.cartFacade.cartCount$;
 
-  constructor(private router: Router, private cartFacade: CartFacade) {}
+  constructor(private cartFacade: CartFacade) {}
 
   ngOnInit() {}
-
-  cart(): void {
-    this.router.navigateByUrl('/cart');
-  }
 }

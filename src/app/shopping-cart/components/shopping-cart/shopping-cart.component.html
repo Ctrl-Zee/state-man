@@ -1,17 +1,21 @@
 <main *ngIf="cartVM$ | async as vm">
-  <section>
-    <p>{{ vm.cartCount }}</p>
+  <section *ngIf="vm.cartCount; else emptyCart">
+    <p-card header="Review items">
+      <div *ngFor="let item of vm.cart">
+        <div class="cart-item">
+          <p>Title: {{ item.book.title }}</p>
+          <p>Cost: {{ item.book.price | currency }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
+        </div>
+      </div>
+      <div class="total-cost">
+        <p>{{ vm.totalPrice | currency }}</p>
+      </div>
+      <ng-template pTemplate="footer">
+        <p-button label="Checkout" icon="pi pi-check"></p-button>
+      </ng-template>
+    </p-card>
   </section>
 
-  <section>
-    <p>{{ vm.totalPrice }}</p>
-  </section>
-
-  <section>
-    <div *ngFor="let item of vm.cart">
-      <p>{{ item.id }}</p>
-      <p>Title: {{ item.book.title }}</p>
-      <p>Quantity: {{ item.quantity }}</p>
-    </div>
-  </section>
+  <ng-template #emptyCart> empty </ng-template>
 </main>
