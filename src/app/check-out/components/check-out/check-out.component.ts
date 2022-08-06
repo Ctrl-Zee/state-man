@@ -3,11 +3,11 @@ import { combineLatest, map } from 'rxjs';
 import { CartFacade } from 'src/app/core/services/cart.facade';
 
 @Component({
-  selector: 'app-shopping-cart',
-  templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.scss'],
+  selector: 'app-check-out',
+  templateUrl: './check-out.component.html',
+  styleUrls: ['./check-out.component.scss'],
 })
-export class ShoppingCartComponent implements OnInit {
+export class CheckOutComponent implements OnInit {
   cartVM$ = combineLatest([
     this.cartFacade.cart$,
     this.cartFacade.totalPrice$,

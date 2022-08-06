@@ -9,17 +9,17 @@ import { Guid } from 'guid-typescript';
   providedIn: 'root',
 })
 export class CartFacade {
-  cart$ = this.cartService.getDataEntities();
+  cart$ = this.cartService.selectDataEntities();
 
-  totalPrice$ = this.cartService.getAllEntities().pipe(
+  totalPrice$ = this.cartService.selectAllEntities().pipe(
     map((items: CartItem[]) => {
       return items
-        .map((item) => item.book.price * item.quantity)
+        .map((item) => item.book?.price ?? 0 * item.quantity)
         .reduce((acc, val) => acc + val, 0);
     })
   );
 
-  cartCount$ = this.cartService.getAllEntities().pipe(
+  cartCount$ = this.cartService.selectAllEntities().pipe(
     map((items: CartItem[]) => {
       return items
         .map((item) => item.quantity)
@@ -35,7 +35,9 @@ export class CartFacade {
   }
 
   upsertEntityByBook(item: Book): void {
-    const foundItem = this.cartService.filterEntitiesByTitle(item.title)[0];
+    const foundItem = this.cartService.filterEntitiesByTitle(
+      item?.title ?? ''
+    )[0];
 
     let cartItem: CartItem;
 

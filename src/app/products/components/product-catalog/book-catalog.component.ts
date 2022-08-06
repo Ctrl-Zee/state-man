@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BookFacade } from 'src/app/core/services/book.facade';
 import { BookService } from 'src/app/core/services/book.service';
 import { CartFacade } from 'src/app/core/services/cart.facade';
 import { Book } from 'src/app/shared/models/book';
@@ -9,15 +10,12 @@ import { Book } from 'src/app/shared/models/book';
   styleUrls: ['./book-catalog.component.scss'],
 })
 export class BookCatalogComponent implements OnInit {
-  books$ = this.bookService.books$;
+  books$ = this.bookFacade.books$;
   cart$ = this.cartFacade.cart$;
   totalPrice$ = this.cartFacade.totalPrice$;
   cartCount$ = this.cartFacade.cartCount$;
 
-  constructor(
-    private bookService: BookService,
-    private cartFacade: CartFacade
-  ) {}
+  constructor(private bookFacade: BookFacade, private cartFacade: CartFacade) {}
 
   ngOnInit() {}
 

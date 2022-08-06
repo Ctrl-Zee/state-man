@@ -6,7 +6,7 @@
   </div>
   <div
     *ngIf="cartCount$ | async as cartCount; else emptyCart"
-    [routerLink]="['cart']"
+    [routerLink]="['checkout']"
   >
     <span class="cart-count">{{ cartCount }}</span>
     <span class="shopping-cart">
@@ -16,7 +16,7 @@
 </header>
 
 <ng-template #emptyCart>
-  <div [routerLink]="['cart']">
+  <div [routerLink]="['checkout']">
     <span class="cart-count">0</span>
     <div class="shopping-cart"><i class="pi pi-shopping-cart"></i></div>
   </div>

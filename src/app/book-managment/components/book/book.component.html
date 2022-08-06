@@ -1,0 +1,6 @@
+<main *ngIf="book$ | async as book; else empty">
+  {{ book.title }}
+  <app-book-form [book]="book"></app-book-form>
+</main>
+
+<ng-template #empty> no book for you </ng-template>

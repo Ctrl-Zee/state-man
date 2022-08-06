@@ -13,10 +13,20 @@ const routes: Routes = [
       import('./products/products.module').then((m) => m.ProductsModule),
   },
   {
-    path: 'cart',
+    path: 'checkout',
     loadChildren: () =>
-      import('./shopping-cart/shopping-cart.module').then(
-        (m) => m.ShoppingCartModule
+      import('./check-out/check-out.module').then((m) => m.CheckOutModule),
+  },
+  {
+    path: 'sandbox',
+    loadChildren: () =>
+      import('./sand-box/sand-box.module').then((m) => m.SandBoxModule),
+  },
+  {
+    path: 'manage-books',
+    loadChildren: () =>
+      import('./book-managment/book-managment.module').then(
+        (m) => m.BookManagmentModule
       ),
   },
 ];

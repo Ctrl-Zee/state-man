@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { createStore } from '@ngneat/elf';
+import {
+  withEntities,
+  selectAllEntities,
+  addEntities,
+  selectEntity,
+  upsertEntities,
+  getEntity,
+} from '@ngneat/elf-entities';
+import { Observable, of } from 'rxjs';
 import { Book } from 'src/app/shared/models/book';
 
 @Injectable({
@@ -93,7 +102,35 @@ export class BookService {
     },
   ];
 
-  books$ = of(this.bookList);
+  // create store
+  private store = createStore({ name: 'cart' }, withEntities<Book>());
+
+  // set store observable
+  private bookStore$ = this.store.asObservable();
+
+  // get cart items from store
+  private data$ = this.bookStore$.pipe(selectAllEntities());
 
   constructor() {}
+
+  getInitializeData(): Observable<Book[]> {
+    this.store.update(addEntities(this.bookList)); // this could be replaced by a call to the API
+    return this.data$;
+  }
+
+  selectEntityById(id: number): Observable<Book | undefined> {
+    return this.store.pipe(selectEntity(id));
+  }
+
+  getEntityById(id: number): Book | undefined {
+    return this.store.query(getEntity(id));
+  }
+
+  addEntity(item: Book, prepend = true): void {
+    this.store.update(addEntities(item, { prepend: prepend }));
+  }
+
+  upsertEntity(item: Book): void {
+    this.store.update(upsertEntities({ ...item }));
+  }
 }

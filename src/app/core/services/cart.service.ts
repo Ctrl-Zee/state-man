@@ -30,24 +30,24 @@ export class CartService {
 
   constructor() {}
 
-  getDataEntities(): Observable<CartItem[]> {
+  selectDataEntities(): Observable<CartItem[]> {
     return this.data$;
+  }
+
+  selectAllEntities(): Observable<CartItem[]> {
+    return this.store.pipe(selectAllEntities());
   }
 
   getEntityAsObject(id: string): CartItem | undefined {
     return this.store.query(getEntity(id));
   }
 
-  getAllEntitiesAsObjects(): CartItem[] {
-    return this.store.query(getAllEntities());
-  }
-
-  getEntity(id: string): Observable<CartItem | undefined> {
+  selectEntity(id: string): Observable<CartItem | undefined> {
     return this.store.pipe(selectEntity(id));
   }
 
-  getAllEntities(): Observable<CartItem[]> {
-    return this.store.pipe(selectAllEntities());
+  getAllEntitiesAsObjects(): CartItem[] {
+    return this.store.query(getAllEntities());
   }
 
   addEntity(item: CartItem, prepend = true): void {
