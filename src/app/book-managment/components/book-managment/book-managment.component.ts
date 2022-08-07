@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BookFacade } from 'src/app/core/services/book.facade';
 import { Book } from 'src/app/shared/models/book';
 
@@ -10,11 +11,11 @@ import { Book } from 'src/app/shared/models/book';
 export class BookManagmentComponent implements OnInit {
   books$ = this.bookFacade.books$;
 
-  constructor(private bookFacade: BookFacade) {}
+  constructor(private bookFacade: BookFacade, private router: Router) {}
 
   ngOnInit() {}
 
   editBook(book: Book) {
-    // console.log(book);
+    this.router.navigate([`manage/book/${book.id}`]);
   }
 }

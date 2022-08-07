@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <div class="p-float-label form-field">
     <input type="text" pInputText formControlName="title" />
     <label for="float-input">Title</label>
@@ -14,5 +14,8 @@
   <div class="p-float-label form-field">
     <input type="text" pInputText formControlName="price" />
     <label for="float-input">Price</label>
+  </div>
+  <div class="form-field">
+    <p-button label="Save" type="submit"></p-button>
   </div>
 </form>

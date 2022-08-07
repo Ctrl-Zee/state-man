@@ -1,6 +1,8 @@
-<main *ngIf="book$ | async as book; else empty">
-  {{ book.title }}
-  <app-book-form [book]="book"></app-book-form>
+<main>
+  <div *ngIf="book$ | async as book">
+    <app-book-form
+      [book]="book"
+      (bookUpsertEvent)="onBookUpsert($event)"
+    ></app-book-form>
+  </div>
 </main>
-
-<ng-template #empty> no book for you </ng-template>

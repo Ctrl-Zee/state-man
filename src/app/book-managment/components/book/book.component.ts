@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookFacade } from 'src/app/core/services/book.facade';
 import { switchMap } from 'rxjs';
+import { Book } from 'src/app/shared/models/book';
 
 @Component({
   selector: 'app-book',
@@ -21,5 +22,10 @@ export class BookComponent implements OnInit {
 
   parseParam(param: string | null): number {
     return param ? parseInt(param) : 0;
+  }
+
+  onBookUpsert(book: Book): void {
+    this.bookFacade.upsertBook(book);
+    console.log(book);
   }
 }

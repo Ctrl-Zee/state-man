@@ -23,7 +23,7 @@ const routes: Routes = [
       import('./sand-box/sand-box.module').then((m) => m.SandBoxModule),
   },
   {
-    path: 'manage-books',
+    path: 'manage',
     loadChildren: () =>
       import('./book-managment/book-managment.module').then(
         (m) => m.BookManagmentModule

@@ -8,7 +8,7 @@ import {
   upsertEntities,
   getEntity,
 } from '@ngneat/elf-entities';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Book } from 'src/app/shared/models/book';
 
 @Injectable({
@@ -118,12 +118,24 @@ export class BookService {
     return this.data$;
   }
 
-  selectEntityById(id: number): Observable<Book | undefined> {
-    return this.store.pipe(selectEntity(id));
+  selectEntityById(id: number): Observable<Partial<Book>> {
+    return this.store.pipe(
+      selectEntity(id),
+      map((book) => (book ? book : {}))
+    );
   }
 
-  getEntityById(id: number): Book | undefined {
-    return this.store.query(getEntity(id));
+  getEntityById(id: number): Book | Partial<Book> {
+    const book = this.store.query(getEntity(id));
+    if (book) {
+      return book;
+    } else {
+      const partialBook: Partial<Book> = {
+        id: -1,
+      };
+      return partialBook;
+    }
+    // return this.store.query(getEntity(id));
   }
 
   addEntity(item: Book, prepend = true): void {
@@ -131,6 +143,19 @@ export class BookService {
   }
 
   upsertEntity(item: Book): void {
-    this.store.update(upsertEntities({ ...item }));
+    const foundBook = this.selectEntityById(item.id);
+
+    let book: Book;
+
+    if (foundBook) {
+      book = { ...item };
+    } else {
+      book = {
+        ...item,
+        id: Math.random() * 10000, // TODO: We should save the book to the database first and return it to the client
+      };
+    }
+
+    this.store.update(upsertEntities({ ...book }));
   }
 }
