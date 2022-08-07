@@ -8,100 +8,14 @@ import {
   upsertEntities,
   getEntity,
 } from '@ngneat/elf-entities';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
 import { Book } from 'src/app/shared/models/book';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
-  bookList: Book[] = [
-    {
-      id: 1,
-      title: 'The Fifth Season',
-      author: 'N.K Jemisin',
-      pageCount: 498,
-      price: 14.39,
-    },
-    {
-      id: 2,
-      title: 'The Obelisk Gate',
-      author: 'N.K Jemisin',
-      pageCount: 433,
-      price: 14.39,
-    },
-    {
-      id: 3,
-      title: 'The Stone Sky',
-      author: 'N.K Jemisin',
-      pageCount: 445,
-      price: 14.39,
-    },
-    {
-      id: 4,
-      title: 'Altered Carbon',
-      author: 'Richard K. Morgan',
-      pageCount: 389,
-      price: 11.99,
-    },
-    {
-      id: 5,
-      title: 'The Eye Of The World',
-      author: 'Robert Jordan',
-      pageCount: 814,
-      price: 18.0,
-    },
-    {
-      id: 6,
-      title: 'Neuromancer',
-      author: 'William Gibson',
-      pageCount: 271,
-      price: 9.99,
-    },
-    {
-      id: 7,
-      title: 'Fight Club',
-      author: 'Chuck Palahniuk',
-      pageCount: 218,
-      price: 9.99,
-    },
-    {
-      id: 8,
-      title: 'A Wizard Of Earthsea',
-      author: 'Ursula Le Guin',
-      pageCount: 251,
-      price: 11.99,
-    },
-    {
-      id: 9,
-      title: 'The Windup Girl',
-      author: 'Paolo Bacigalupi',
-      pageCount: 386,
-      price: 18.0,
-    },
-    {
-      id: 10,
-      title: 'The Lies of Locke Lamora',
-      author: 'Scott Lynch',
-      pageCount: 537,
-      price: 21.99,
-    },
-    {
-      id: 11,
-      title: 'The Blade Itself',
-      author: 'Joe Abercrombie',
-      pageCount: 542,
-      price: 16.99,
-    },
-    {
-      id: 12,
-      title: 'Prince Of Thornes',
-      author: 'Mark Lawrence',
-      pageCount: 399,
-      price: 12.99,
-    },
-  ];
-
   // create store
   private store = createStore({ name: 'cart' }, withEntities<Book>());
 
@@ -111,10 +25,14 @@ export class BookService {
   // get cart items from store
   private data$ = this.bookStore$.pipe(selectAllEntities());
 
-  constructor() {}
+  constructor(private apiService: ApiService) {}
 
-  getInitializeData(): Observable<Book[]> {
-    this.store.update(addEntities(this.bookList)); // this could be replaced by a call to the API
+  /**
+   * Use this to initialize the observable in the facade
+   * @returns Book stream of saved books
+   */
+  getData(): Observable<Book[]> {
+    this.fetchBookList();
     return this.data$;
   }
 
@@ -123,19 +41,6 @@ export class BookService {
       selectEntity(id),
       map((book) => (book ? book : {}))
     );
-  }
-
-  getEntityById(id: number): Book | Partial<Book> {
-    const book = this.store.query(getEntity(id));
-    if (book) {
-      return book;
-    } else {
-      const partialBook: Partial<Book> = {
-        id: -1,
-      };
-      return partialBook;
-    }
-    // return this.store.query(getEntity(id));
   }
 
   addEntity(item: Book, prepend = true): void {
@@ -157,5 +62,18 @@ export class BookService {
     }
 
     this.store.update(upsertEntities({ ...book }));
+  }
+
+  /**
+   * Gets all saved books from the API.
+   *
+   * NOTE: Therer is no need to unsubscribe from the HTTP observable.
+   * The HTTP service calls complete after the data is returned.
+   */
+  fetchBookList(): void {
+    this.apiService
+      .doGet<Book[]>('bookList')
+      .pipe(tap((data) => this.store.update(addEntities(data))))
+      .subscribe();
   }
 }

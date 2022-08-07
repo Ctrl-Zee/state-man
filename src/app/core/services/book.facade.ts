@@ -9,7 +9,7 @@ import { BookService } from './book.service';
   providedIn: 'root',
 })
 export class BookFacade {
-  books$ = this.bookService.getInitializeData();
+  books$ = this.bookService.getData();
 
   constructor(private bookService: BookService) {}
 
