@@ -65,9 +65,9 @@ export class BookService {
   }
 
   /**
-   * Gets all saved books from the API.
+   * Gets all saved books from the API and initializes the store.
    *
-   * NOTE: Therer is no need to unsubscribe from the HTTP observable.
+   * NOTE: There is no need to unsubscribe from the HTTP observable.
    * The HTTP service calls complete after the data is returned.
    */
   fetchBookList(): void {

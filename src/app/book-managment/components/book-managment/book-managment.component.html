@@ -1,6 +1,10 @@
 <main *ngIf="books$ | async as books">
   <div class="button-container">
-    <p-button label="Add Book" icon="pi pi-check"></p-button>
+    <p-button
+      [routerLink]="['book']"
+      label="Add Book"
+      icon="pi pi-check"
+    ></p-button>
   </div>
   <p-table [value]="books" responsiveLayout="scroll">
     <ng-template pTemplate="header">
