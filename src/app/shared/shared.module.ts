@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule } from '@angular/router';
 import { TableModule } from 'primeng/table';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -21,6 +22,7 @@ import { TableModule } from 'primeng/table';
     ButtonModule,
     InputTextModule,
     TableModule,
+    SidebarModule,
   ],
   exports: [
     CommonModule,

@@ -30,6 +30,7 @@
     "@ngneat/elf-state-history": "^1.1.0",
     "angular-in-memory-web-api": "^0.14.0",
     "guid-typescript": "^1.0.9",
+    "hamburgers": "^1.2.1",
     "primeicons": "^5.0.0",
     "primeng": "^14.0.0",
     "rxjs": "~7.5.0",

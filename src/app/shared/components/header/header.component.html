@@ -1,10 +1,20 @@
 <header>
+  <button
+    class="hamburger hamburger--collapse"
+    type="button"
+    (click)="active = !active; toggleSideBar()"
+    [ngClass]="active ? 'is-active' : ''"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
   <div [routerLink]="['products']" class="title">Books'n'Things</div>
-  <a [routerLink]="['manage']">manage books</a>
-  <div class="p-input-icon-right">
+
+  <!-- <div class="p-input-icon-right">
     <i class="pi pi-search"></i>
     <input type="text" pInputText />
-  </div>
+  </div> -->
   <div
     *ngIf="cartCount$ | async as cartCount; else emptyCart"
     [routerLink]="['checkout']"
@@ -22,3 +32,15 @@
     <div class="shopping-cart"><i class="pi pi-shopping-cart"></i></div>
   </div>
 </ng-template>
+
+<p-sidebar
+  [(visible)]="isSideBarVisible"
+  [baseZIndex]="10000"
+  [dismissible]="false"
+  [showCloseIcon]="false"
+>
+  <nav>
+    <a [routerLink]="['products']">Home</a>
+    <a [routerLink]="['manage']">Manage Books</a>
+  </nav>
+</p-sidebar>

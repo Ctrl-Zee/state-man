@@ -8,8 +8,15 @@ import { CartFacade } from 'src/app/core/services/cart.facade';
 })
 export class HeaderComponent implements OnInit {
   cartCount$ = this.cartFacade.cartCount$;
+  isSideBarVisible = false;
+  isMenuOpen = false;
+  active = false;
 
   constructor(private cartFacade: CartFacade) {}
 
   ngOnInit() {}
+
+  toggleSideBar() {
+    this.isSideBarVisible = !this.isSideBarVisible;
+  }
 }
