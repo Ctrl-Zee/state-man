@@ -40,7 +40,8 @@
   [showCloseIcon]="false"
 >
   <nav>
-    <a [routerLink]="['products']">Home</a>
-    <a [routerLink]="['manage']">Manage Books</a>
+    <a [routerLink]="['products']" (click)="toggleSideBar()">Home</a>
+    <a [routerLink]="['manage']" (click)="toggleSideBar()">Manage Books</a>
+    <a [routerLink]="['checkout']" (click)="toggleSideBar()">Check Out</a>
   </nav>
 </p-sidebar>
